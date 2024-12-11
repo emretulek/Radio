@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <MakeDir Directories="$(TargetDir)$(AssemblyName)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(TargetDir)$(AssemblyName)" />
+  </Target>
+  
+  <ItemGroup>
+    <PackageReference Include="Costura.Fody" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="LibVLCSharp.WPF" Version="3.9.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="9.0.0" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.21">
+      <GeneratePathProperty>True</GeneratePathProperty>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Widgets.Common">
+      <HintPath>..\..\Widgets.Common\Widgets.Common\bin\Debug\net8.0-windows\Widgets.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <VlcWindowsX64TargetDir Condition=" '$(VlcWindowsX64TargetDir)' == '' ">$(AssemblyName)\libvlc\win-x64</VlcWindowsX64TargetDir>
+    <VlcWindowsX86TargetDir Condition=" '$(VlcWindowsX86TargetDir)' == '' ">$(AssemblyName)\libvlc\win-x86</VlcWindowsX86TargetDir>
+    <VlcWindowsX64Enabled Condition="'$(VlcWindowsX64Enabled)' == '' AND ('$(Platform)' == 'x64' OR '$(Platform)' == 'AnyCPU')">true</VlcWindowsX64Enabled>
+    <VlcWindowsX86Enabled Condition="'$(VlcWindowsX86Enabled)' == '' AND ('$(Platform)' == 'x86' OR '$(Platform)' == 'AnyCPU')">false</VlcWindowsX86Enabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <VlcWindowsX64IncludeFiles Include="libvlc.dll" />
+    <VlcWindowsX64IncludeFiles Include="libvlccore.dll" />
+    <VlcWindowsX64IncludeFiles Include="hrtfs\%2A%2A" />
+    <VlcWindowsX64IncludeFiles Include="lua\%2A%2A" />
+
+    <VlcWindowsX64IncludeFiles Include="plugins\access\%2A" />
+    <VlcWindowsX64IncludeFiles Include="plugins\audio_filter\%2A" />
+    <VlcWindowsX64IncludeFiles Include="plugins\codec\libavcodec_plugin.dll" />
+    <VlcWindowsX64IncludeFiles Include="plugins\demux\%2A" />
+    <VlcWindowsX64IncludeFiles Include="plugins\logger\%2A" />
+    <VlcWindowsX64IncludeFiles Include="plugins\lua\%2A" />
+    <VlcWindowsX64IncludeFiles Include="plugins\audio_output\%2A" />
+    <VlcWindowsX64IncludeFiles Include="plugins\packetizer\%2A" />
+    <VlcWindowsX64IncludeFiles Include="plugins\misc\%2A" />
+    <VlcWindowsX64IncludeFiles Include="plugins\stream_filter\%2A" />
+
+    <!-- You can include plugin-by-plugin -->
+    <!--<VlcWindowsX64IncludeFiles Include="plugins\audio_output\libdirectsound_plugin.dll" />-->
+
+    <!-- You can include with wildcards all in d3d9/d3d11 -->
+    <!--<VlcWindowsX64IncludeFiles Include="plugins\d3d%2A\%2A" />-->
+
+    <!-- You can still exclude things from what you have included -->
+    <!--<VlcWindowsX64IncludeFiles Include="plugins\codec\libddummy_plugin.dll" />-->
+
+  </ItemGroup>
+
+</Project>

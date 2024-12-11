@@ -1,0 +1,146 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="PrimaryColor">Brown</Color>
+    <Color x:Key="PrimaryColorLight">RosyBrown</Color>
+    <Color x:Key="SecondaryColor">#212121</Color>
+    <Color x:Key="SecondaryColorLight">LightGray</Color>
+    <Color x:Key="TextColor">White</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
+    <SolidColorBrush x:Key="PrimaryBrushLight" Color="{DynamicResource PrimaryColorLight}" />
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{DynamicResource SecondaryColor}" />
+    <SolidColorBrush x:Key="SecondaryBrushLight" Color="{DynamicResource SecondaryColorLight}" />
+    <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
+
+    <SolidColorBrush x:Key="AnimateBrush_1" Color="{StaticResource PrimaryColor}" />
+    <SolidColorBrush x:Key="AnimateBrush_2" Color="{StaticResource PrimaryColorLight}" />
+
+    <!-- Slider Start -->
+    <Style x:Key="Slider" TargetType="{x:Type Slider}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Slider}">
+                    <Grid VerticalAlignment="Center">
+                        <Border x:Name="borderBackground" Margin="6,0" Height="4" Background="{DynamicResource PrimaryBrushLight}" />
+                        <Canvas Margin="0,-4,0,0" VerticalAlignment="Center">
+                            <Border x:Name="PART_SelectionRange" HorizontalAlignment="Left" Height="4" Background="{TemplateBinding Foreground}" />
+                        </Canvas>
+                        <Track x:Name="PART_Track">
+                            <Track.Thumb>
+                                <Thumb  Width="8" Height="20" BorderThickness="5"  BorderBrush="{DynamicResource PrimaryBrush}"  />
+                            </Track.Thumb>
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton  Opacity="0" Command="Slider.DecreaseLarge"/>
+                            </Track.DecreaseRepeatButton>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton  Opacity="0" Command="Slider.IncreaseLarge" />
+                            </Track.IncreaseRepeatButton>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="IsSelectionRangeEnabled" Value="True" />
+        <Setter Property="SelectionStart" Value="{Binding Minimum, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="SelectionEnd" Value="{Binding Value, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+    </Style>
+    <!-- Slider End -->
+
+    <!-- Animation Start -->
+    <Storyboard x:Key="AnimateNotes">
+        <!-- Note1 Hareket Animasyonu -->
+        <DoubleAnimation 
+    Storyboard.TargetName="Note1"
+    Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+    From="0" To="10" Duration="0:0:2" AutoReverse="True" RepeatBehavior="Forever" />
+
+        <!-- Note2 Hareket Animasyonu -->
+        <DoubleAnimation 
+    Storyboard.TargetName="Note2"
+    Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+    From="0" To="-10" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever" />
+
+        <!-- Note1 Renk Geçişi -->
+        <ColorAnimation 
+    Storyboard.TargetName="Note1"
+    Storyboard.TargetProperty="(Path.Fill).(SolidColorBrush.Color)"
+    From="{DynamicResource PrimaryColorLight}" To="{DynamicResource PrimaryColor}" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever" />
+
+        <!-- Note2 Renk Geçişi -->
+        <ColorAnimation 
+    Storyboard.TargetName="Note2"
+    Storyboard.TargetProperty="(Path.Fill).(SolidColorBrush.Color)"
+    From="{DynamicResource PrimaryColor}" To="{DynamicResource PrimaryColorLight}" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever" />
+    </Storyboard>
+    <!-- Animation End -->
+
+    <!-- Listbox Item Start -->
+    <Style TargetType="ListBoxItem" x:Key="RadioList">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Name="Border" Background="{DynamicResource SecondaryBrush}"
+                        BorderBrush="{DynamicResource PrimaryBrush}" CornerRadius="5"
+                        BorderThickness="1.5" Padding="5" Margin="0,0,0,5">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!-- MouseOver trigger -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource PrimaryBrushLight}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource TextBrush}" />
+                        </Trigger>
+
+                        <!-- Selected trigger -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource TextBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Listbox Item End -->
+
+    <!-- Media Control Buttons -->
+    <Style TargetType="{x:Type Button}" x:Key="MediaControls">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="MinWidth" Value="120"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" 
+                    Padding="{TemplateBinding Padding}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryBrushLight}"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryBrushLight}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource SecondaryBrushLight}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- Media Control Buttons End -->
+</ResourceDictionary>
