@@ -3,6 +3,9 @@
 This project was developed as a radio widget for windows widgets.
 [libvlcsharp](https://github.com/videolan/libvlcsharp) was used.
 
+This site is very useful to find radio stream urls.
+[FM STREAM](https://fmstream.org/index.php?c=FT)
+
 ### Internal Settings
 
 ```json
