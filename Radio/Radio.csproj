@@ -25,18 +25,18 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Widgets.Common">
-      <HintPath>..\..\Widgets.Common\Widgets.Common\bin\Debug\net8.0-windows\Widgets.Common.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
   <PropertyGroup>
     <VlcWindowsX64TargetDir Condition=" '$(VlcWindowsX64TargetDir)' == '' ">$(AssemblyName)\libvlc\win-x64</VlcWindowsX64TargetDir>
     <VlcWindowsX86TargetDir Condition=" '$(VlcWindowsX86TargetDir)' == '' ">$(AssemblyName)\libvlc\win-x86</VlcWindowsX86TargetDir>
     <VlcWindowsX64Enabled Condition="'$(VlcWindowsX64Enabled)' == '' AND ('$(Platform)' == 'x64' OR '$(Platform)' == 'AnyCPU')">true</VlcWindowsX64Enabled>
     <VlcWindowsX86Enabled Condition="'$(VlcWindowsX86Enabled)' == '' AND ('$(Platform)' == 'x86' OR '$(Platform)' == 'AnyCPU')">false</VlcWindowsX86Enabled>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Widgets.Common">
+      <HintPath>..\..\Widgets.Common\Widgets.Common\bin\Release\net8.0-windows\Widgets.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
   <ItemGroup>
     <VlcWindowsX64IncludeFiles Include="libvlc.dll" />

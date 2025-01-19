@@ -36,7 +36,7 @@ namespace Radio
         // Window to WdigetWindow
         public WidgetWindow WidgetWindow()
         {
-            return new WidgetWindow(this, WidgetDefaultStruct());
+            return new WidgetWindow(this);
         }
 
         // WidgetWindow default settings
